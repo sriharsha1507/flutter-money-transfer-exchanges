@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:money_transfer_exchanges/service/api.dart';
+import 'package:money_transfer_exchanges/widgets/exchange_widget.dart';
 
 void main() => runApp(new MyApp());
 
@@ -18,10 +22,24 @@ class MyApp extends StatelessWidget {
           body: Column(
             children: <Widget>[
               Text("title", textDirection: TextDirection.ltr,),
-              Text("Amount per 1 dollar")
+              Text("Amount per 1 dollar"),
+              RaisedButton(
+                padding: const EdgeInsets.all(8.0),
+                textColor: Colors.white,
+                color: Colors.blue,
+                onPressed: addNumbers,
+                child: new Text("Add"),
+              ),
+              ExchangeWidget(Api())
             ],
           )
       ),
     );
+  }
+
+  Future addNumbers() async {
+    Api api = Api();
+    var data = await api.fetchRemitlyData();
+    print(data['amount']);
   }
 }
