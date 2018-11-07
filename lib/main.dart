@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
           ),
           body: Column(
             children: <Widget>[
-              Text("title", textDirection: TextDirection.ltr,),
+              Text(
+                "title",
+                textDirection: TextDirection.ltr,
+              ),
               Text("Amount per 1 dollar"),
               RaisedButton(
                 padding: const EdgeInsets.all(8.0),
@@ -30,16 +33,15 @@ class MyApp extends StatelessWidget {
                 onPressed: addNumbers,
                 child: new Text("Add"),
               ),
-              ExchangeWidget(Api())
+              ExchangeWidget(Api(), Api.remitlyEndPoint)
             ],
-          )
-      ),
+          )),
     );
   }
 
   Future addNumbers() async {
     Api api = Api();
-    var data = await api.fetchRemitlyData();
+    var data = await api.fetchData(Api.xoomEndPoint);
     print(data['amount']);
   }
 }
