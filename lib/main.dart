@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:money_transfer_exchanges/model/ExchangeItem.dart';
 import 'package:money_transfer_exchanges/service/api.dart';
 import 'package:money_transfer_exchanges/widgets/exchange_widget.dart';
 
@@ -39,9 +40,12 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Future addNumbers() async {
-    Api api = Api();
-    var data = await api.fetchData(Api.xoomEndPoint);
-    print(data['amount']);
+  addNumbers() {
+    Api()
+        .fetchData(Api.remitlyEndPoint)
+        .then((jsonData) => ExchangeItem.fromJson(jsonData))
+        .then((exchangeItemObject) {
+      print(exchangeItemObject.toString());
+    });
   }
 }
